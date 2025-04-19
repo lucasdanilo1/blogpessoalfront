@@ -1,11 +1,8 @@
-<card-elevacao-padrao class="post-card" padding="3" labelExcluir="Excluir Post" (excluirEvent)="onDelete()">
-  <div class="post-header">
-    <h3>{{ post.titulo }}</h3>
-  </div>
-  <div class="post-content">
-    <p>{{ post.texto }}</p>
-    <div class="post-info">
-      <span>Data: {{ post.data | date:'dd/MM/yyyy HH:mm' }}</span>
+<div class="row">
+    <div class="post-cartao col-6 my-3 p-4 d-flex flex-column">
+      <h3>{{ post.titulo }}</h3>
+      <div class="post-data">{{ post.data| date:'dd/MM/yyyy' }}</div>
+      <div class="post-resumo mb-4">{{ post.texto | slice:0:100 }}...</div>
+      <a class="ler-mais mt-auto text-end">Ler mais</a>
     </div>
-  </div>
-</card-elevacao-padrao> 
+</div>

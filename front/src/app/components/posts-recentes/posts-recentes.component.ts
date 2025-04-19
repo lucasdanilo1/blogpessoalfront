@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Post } from '../../models/post';
+import { Post } from '../../shared/components/types/post.schemas';
 
 /**
  * Componente responsável por exibir a lista de posts recentes
@@ -16,8 +16,7 @@ import { Post } from '../../models/post';
   styleUrl: './posts-recentes.component.scss'
 })
 export class PostsRecentesComponent {
-  /**
-   * Lista de posts a serem exibidos
-   */
+  
   @Input() posts: Post[] = [];
+
 }

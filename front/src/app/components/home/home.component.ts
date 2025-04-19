@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NGX_ECHARTS_CONFIG, NgxEchartsModule } from 'ngx-echarts';
-import { Post } from '../../models/post';
+import { Post } from '../../shared/components/types/post.schemas';
 import { PostsRecentesComponent } from '../posts-recentes/posts-recentes.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PostFormComponent } from '../post/post-form/post-form.component';
 import { DefaultButtonComponent } from '../shared/default-button/default-button.component';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -25,10 +26,10 @@ import { DefaultButtonComponent } from '../shared/default-button/default-button.
     DatePipe,
     PostsRecentesComponent,
     MatDialogModule,
-    DefaultButtonComponent
+    DefaultButtonComponent,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
@@ -36,34 +37,28 @@ export class HomeComponent implements OnInit {
   postsTimelineOption: any;
 
   constructor(
+    private postService: PostService,
     private router: Router,
     private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    this.mockPosts();
+  async ngOnInit(): Promise<void> {
+    this.posts = await this.postService.getUltimosPosts({});
     this.initCharts();
-  }
-
-  mockPosts(): void {
-    this.posts = [
-      { id: 1, titulo: 'Primeiro Post', texto: 'Conteúdo do primeiro post', tema: {descricao: "a"}, usuario: {id: 1, nome: "Lucas"}, data: new Date(2023, 7, 15) },
-      { id: 1, titulo: 'Primeiro Post', texto: 'Conteúdo do primeiro post', tema: {descricao: "a"}, usuario: {id: 1, nome: "Lucas"}, data: new Date(2023, 7, 15) },
-    ];
   }
 
   initCharts(): void {
     this.postsCountOption = {
       title: {
         text: 'Posts por Tema',
-        left: 'center'
+        left: 'center',
       },
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
       },
       legend: {
         orient: 'vertical',
-        left: 'left'
+        left: 'left',
       },
       series: [
         {
@@ -74,60 +69,60 @@ export class HomeComponent implements OnInit {
           itemStyle: {
             borderRadius: 10,
             borderColor: '#fff',
-            borderWidth: 2
+            borderWidth: 2,
           },
           label: {
             show: false,
-            position: 'center'
+            position: 'center',
           },
           emphasis: {
             label: {
               show: true,
               fontSize: 20,
-              fontWeight: 'bold'
-            }
+              fontWeight: 'bold',
+            },
           },
           labelLine: {
-            show: false
+            show: false,
           },
           data: [
             { value: 2, name: 'Tema 1' },
             { value: 2, name: 'Tema 2' },
-            { value: 1, name: 'Tema 3' }
-          ]
-        }
-      ]
+            { value: 1, name: 'Tema 3' },
+          ],
+        },
+      ],
     };
 
     this.postsTimelineOption = {
       title: {
         text: 'Posts ao Longo do Tempo',
-        left: 'center'
+        left: 'center',
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
       },
       xAxis: {
         type: 'category',
-        data: ['Ago', 'Set', 'Out', 'Nov', 'Dez']
+        data: ['Ago', 'Set', 'Out', 'Nov', 'Dez'],
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
       },
       series: [
         {
           data: [1, 1, 1, 1, 1],
           type: 'line',
-          smooth: true
-        }
-      ]
+          smooth: true,
+        },
+      ],
     };
   }
 
   navigateToNewPost(): void {
     const dialogRef = this.dialog.open(PostFormComponent, {
       width: '600px',
-      disableClose: false
+      disableClose: false,
     });
 
     dialogRef.componentInstance.postAdicionado.subscribe((novoPost: Post) => {
@@ -135,4 +130,4 @@ export class HomeComponent implements OnInit {
       dialogRef.close();
     });
   }
-} 
+}

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { PostFormComponent } from './post-form/post-form.component';
 import { PostListComponent } from './post-list/post-list.component';
-import { Post } from '../../models/post';
+import { Post } from '../../shared/components/types/post.schemas';
 
 @Component({
   selector: 'app-post',

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { Usuario } from '../../models/Usuario';
+import { Usuario } from '../../shared/components/types/usuario.schemas';
 import { SnackBarService } from '../../services/snackbar.service';
 
 @Component({

@@ -8,23 +8,24 @@
       </div>
 
       @if (userPosts) {
-        @for (item of userPosts; track $index) {
+      @for (item of userPosts; track item.id ) {
+
         <app-post-item [post]="item"></app-post-item>
-        }
-        }
+      }
+      }
 
       @if (!userPosts) {
-        <div class="alert alert-danger" role="alert">
-          Não foi possível carregar posts
-        </div>
+      <div class="alert alert-danger" role="alert">
+        Não foi possível carregar posts
+      </div>
       }
 
-      @if (userPosts && userPosts.length === 0  ) {
-        <div class="alert alert-info" role="alert">
-          Você ainda não possui posts publicados.
-        </div>
+      @if (userPosts && userPosts.length === 0 ) {
+      <div class="alert alert-info" role="alert">
+        Você ainda não possui posts publicados.
+      </div>
       }
-      
+
     </div>
   </div>
 </div>

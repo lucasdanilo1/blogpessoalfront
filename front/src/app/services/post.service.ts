@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { Post } from '../models/post';
+import { FiltrosPostagemDTO, Post } from '../shared/components/types/post.schemas';
+import { Page } from '../shared/components/types/page';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,25 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  async getAllPosts(): Promise<Post[]> {
-    return lastValueFrom(this.http.get<Post[]>(this.API_POSTAGENS));
+  async getUltimosPosts(filtros: FiltrosPostagemDTO): Promise<Post[]> {
+    let params = new HttpParams()
+      .set('page', '0')
+      .set('size', '10')
+      .set('sort', 'data,asc');
+
+    const response = await lastValueFrom(
+      this.http.post<Page<Post>>(`${this.API_POSTAGENS}/listagem`, {
+        params,
+        body: filtros
+      })
+    );
+
+    return response.content;
   }
 
   async getUserPosts(): Promise<Post[]> {
-    return lastValueFrom(this.http.get<Post[]>(`${this.API_POSTAGENS}/usuario-logado`));
+      const response = await lastValueFrom(this.http.get<Page<Post>>(`${this.API_POSTAGENS}/listagem/usuario-logado`));
+      return response.content;
   }
 
   async createPost(post: Post): Promise<Post> {

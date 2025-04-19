@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Post } from '../../../models/post';
 import { PostItemComponent } from '../post-item/post-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CardElevacaoPadraoComponent } from '../../../shared/components/card-elevacao-padrao.component';
 import { PostService } from '../../../services/post.service';
 import { SnackBarService } from '../../../services/snackbar.service';
+import { Post } from '../../../shared/components/types/post.schemas';
 
 @Component({
   selector: 'app-post-list',
@@ -40,7 +40,8 @@ export class PostListComponent implements OnInit {
 
   async loadPosts(): Promise<void> {
     try {
-      this.posts = await this.postService.getAllPosts();
+
+      this.posts = await this.postService.getUltimosPosts({});
     } catch (error) {
       this.snackBarService.exibirMensagemErro('Não foi possível carregar os posts. Tente novamente mais tarde.');
     }

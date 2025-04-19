@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Usuario } from '../../models/Usuario';
+import { Usuario } from '../../shared/components/types/usuario.schemas';
 
 @Component({
   selector: 'app-nav',

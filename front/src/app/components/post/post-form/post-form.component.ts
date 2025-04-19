@@ -7,11 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { Post } from '../../../models/post';
-import { Tema } from '../../../models/tema';
+import { Tema } from '../../../shared/components/types/tema.schemas';
 import { PostService } from '../../../services/post.service';
 import { TemaService } from '../../../services/tema.service';
 import { SnackBarService } from '../../../services/snackbar.service';
+import { Post } from '../../../shared/components/types/post.schemas';
 
 @Component({
   selector: 'app-post-form',
@@ -53,6 +53,7 @@ export class PostFormComponent implements OnInit {
     this.carregandoTemas = true;
     try {
       this.temas = await this.temaService.getAllTemas();
+      console.log(this.temas)
     } catch (error) {
       this.snackBarService.exibirMensagemErro('Não foi possível carregar os temas. Usando dados mockados.');
     } finally {
@@ -85,7 +86,7 @@ export class PostFormComponent implements OnInit {
     try {
       const postCriado = await this.postService.createPost(novoPost);
       this.postForm.reset();
-      this.snackBarService.exibirMensagemSucesso('Post publicado com sucesso!');
+      this.snackBarService.exibirMensagemSucesso('Post publicado');
       this.postAdicionado.emit(postCriado);
     } catch (error) {
       this.snackBarService.exibirMensagemErro('Não foi possível publicar o post. Tente novamente mais tarde.');

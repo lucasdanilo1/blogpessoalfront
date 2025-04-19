@@ -25,7 +25,7 @@
         <mat-select formControlName="temaId">
           <mat-option *ngIf="carregandoTemas" value="">Carregando temas...</mat-option>
           <mat-option *ngFor="let tema of temas" [value]="tema.id">
-            {{ tema.nome }}
+            {{ tema.descricao }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="postForm.get('temaId')?.hasError('required')">

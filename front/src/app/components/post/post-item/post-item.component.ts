@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Post } from '../../../models/post';
 import { CardElevacaoPadraoComponent } from '../../../shared/components/card-elevacao-padrao.component';
+import { Post } from '../../../shared/components/types/post.schemas';
 
 @Component({
   selector: 'app-post-item',
