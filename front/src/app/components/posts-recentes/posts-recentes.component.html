@@ -1,0 +1,11 @@
+<div class="posts-secao">
+  <h2>Posts Recentes</h2>
+  <div class="posts-lista">
+    <div class="post-cartao" *ngFor="let post of posts">
+      <h3>{{ post.titulo }}</h3>
+      <p class="post-data">{{ post.data | date:'dd/MM/yyyy' }}</p>
+      <p class="post-resumo">{{ post.texto | slice:0:100 }}...</p>
+      <a class="ler-mais">Ler mais</a>
+    </div>
+  </div>
+</div>

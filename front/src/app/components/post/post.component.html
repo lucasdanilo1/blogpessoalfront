@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Blog Pessoal</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+
+  <app-post-form (postAdicionado)="onPostAdicionado($event)"></app-post-form>
+  
+  <app-post-list></app-post-list>
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="cadastro-box">
+    <h2>Cadastro</h2>
+    
+    <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input
+          type="text"
+          id="nome"
+          formControlName="nome"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': cadastroForm.get('nome')?.invalid && cadastroForm.get('nome')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('nome')?.errors?.['required'] && cadastroForm.get('nome')?.touched">
+          Nome é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('nome')?.errors?.['minlength'] && cadastroForm.get('nome')?.touched">
+          Nome deve ter pelo menos 3 caracteres
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="usuario">Usuário</label>
+        <input
+          type="text"
+          id="usuario"
+          formControlName="usuario"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': cadastroForm.get('usuario')?.invalid && cadastroForm.get('usuario')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('usuario')?.errors?.['required'] && cadastroForm.get('usuario')?.touched">
+          Usuário é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('usuario')?.errors?.['minlength'] && cadastroForm.get('usuario')?.touched">
+          Usuário deve ter pelo menos 3 caracteres
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          formControlName="senha"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('senha')?.errors?.['required'] && cadastroForm.get('senha')?.touched">
+          Senha é obrigatória
+        </div>
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('senha')?.errors?.['minlength'] && cadastroForm.get('senha')?.touched">
+          Senha deve ter pelo menos 6 caracteres
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmarSenha">Confirmar Senha</label>
+        <input
+          type="password"
+          id="confirmarSenha"
+          formControlName="confirmarSenha"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': (cadastroForm.get('confirmarSenha')?.invalid || cadastroForm.errors?.['senhasDiferentes']) && cadastroForm.get('confirmarSenha')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="cadastroForm.get('confirmarSenha')?.errors?.['required'] && cadastroForm.get('confirmarSenha')?.touched">
+          Confirmação de senha é obrigatória
+        </div>
+        <div class="invalid-feedback" *ngIf="cadastroForm.errors?.['senhasDiferentes'] && cadastroForm.get('confirmarSenha')?.touched">
+          As senhas não coincidem
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="cadastroForm.invalid || isLoading"
+        >
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+          Cadastrar
+        </button>
+      </div>
+      
+      <div class="login-link mt-3 text-center">
+        <p>Já tem uma conta? <a routerLink="/login">Fazer login</a></p>
+      </div>
+    </form>
+  </div>
+</div> 

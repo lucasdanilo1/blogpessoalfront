@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="login-box mat-elevation-z6">
+    <h2 class="login-title">Login</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      @if (errorMessage) {
+        <mat-error class="error-message">{{ errorMessage }}</mat-error>
+      }
+      
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Usuário</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="usuario"
+        />
+        @if (loginForm.get('usuario')?.errors?.['required'] && loginForm.get('usuario')?.touched) {
+          <mat-error>Usuário é obrigatório</mat-error>
+        }
+        @if (loginForm.get('usuario')?.errors?.['minlength'] && loginForm.get('usuario')?.touched) {
+          <mat-error>Usuário deve ter pelo menos 3 caracteres</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="senha"
+        />
+        <button 
+          mat-icon-button 
+          matSuffix 
+          type="button"
+          (click)="hidePassword = !hidePassword" 
+          [attr.aria-label]="'Mostrar senha'"
+        >
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (loginForm.get('senha')?.errors?.['required'] && loginForm.get('senha')?.touched) {
+          <mat-error>Senha é obrigatória</mat-error>
+        }
+        @if (loginForm.get('senha')?.errors?.['minlength'] && loginForm.get('senha')?.touched) {
+          <mat-error>Senha deve ter pelo menos 6 caracteres</mat-error>
+        }
+      </mat-form-field>
+      
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="login-button"
+          [disabled]="loginForm.invalid || isLoading"
+        >
+          @if (isLoading) {
+            <mat-spinner diameter="20" class="spinner-button"></mat-spinner>
+            <span>Entrando...</span>
+          } @else {
+            <span>Entrar</span>
+          }
+        </button>
+      </div>
+      
+      <div class="register-link">
+        <p>Não tem uma conta? <a routerLink="/cadastro" class="register-text">Cadastre-se</a></p>
+      </div>
+    </form>
+  </div>
+</div> 

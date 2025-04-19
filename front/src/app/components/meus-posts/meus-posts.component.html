@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="header-container">
+        <h2 class="mb-4">Meus Posts</h2>
+        <app-default-button label="Novo Post" [disabled]="false" size="medium" icon="fas fa-plus" iconPosition="start"
+          (onclick)="abrirFormularioPost()"></app-default-button>
+      </div>
+
+      @if (userPosts) {
+        @for (item of userPosts; track $index) {
+        <app-post-item [post]="item"></app-post-item>
+        }
+        }
+
+      @if (!userPosts) {
+        <div class="alert alert-danger" role="alert">
+          Não foi possível carregar posts
+        </div>
+      }
+
+      @if (userPosts && userPosts.length === 0  ) {
+        <div class="alert alert-info" role="alert">
+          Você ainda não possui posts publicados.
+        </div>
+      }
+      
+    </div>
+  </div>
+</div>

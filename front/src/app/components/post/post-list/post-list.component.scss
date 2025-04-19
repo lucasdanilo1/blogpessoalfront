@@ -1,0 +1,31 @@
+.posts-section {
+  margin-top: 32px;
+}
+
+.posts-container {
+  margin-top: 16px;
+}
+
+.no-posts {
+  margin-top: 16px;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  
+  mat-icon {
+    margin-right: 8px;
+    color: #666;
+  }
+  
+  span {
+    color: #666;
+  }
+}
+
+:host {
+  display: block;
+} 

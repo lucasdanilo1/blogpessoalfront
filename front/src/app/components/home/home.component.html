@@ -1,0 +1,24 @@
+<div class="home-container">
+  <div class="header">
+    <h1>Dashboard do Blog</h1>
+    <app-default-button 
+      label="Novo Post"
+      [disabled]="false"
+      size="medium"
+      icon="fas fa-plus"
+      iconPosition="start"
+      (onclick)="navigateToNewPost()"
+    ></app-default-button>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart-card">
+      <div echarts [options]="postsCountOption" class="chart"></div>
+    </div>
+    <div class="chart-card">
+      <div echarts [options]="postsTimelineOption" class="chart"></div>
+    </div>
+  </div>
+
+  <app-posts-recentes [posts]="posts"></app-posts-recentes>
+</div> 

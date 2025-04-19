@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+
+@import 'bootstrap/dist/css/bootstrap.css';
+
+@include mat.core();
+
+// Definição da paleta personalizada
+$custom-pallete: (
+  50: #e3f2fd,
+  100: #bbdefb,
+  200: #90caf9,
+  300: #64b5f6,
+  400: #42a5f5,
+  500: #2196f3,
+  600: #1e88e5,
+  700: #1976d2,
+  800: #1565c0,
+  900: #0d47a1,
+  contrast: (
+    50: rgba(0, 0, 0, 0.87),
+    100: rgba(0, 0, 0, 0.87),
+    200: rgba(0, 0, 0, 0.87),
+    300: rgba(0, 0, 0, 0.87),
+    400: rgba(0, 0, 0, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  )
+);
+
+$spacing-small: 8px;
+$spacing-medium: 16px;
+$spacing-large: 24px;
+
+$text-color-primary: #333333;
+$text-color-secondary: #666666;
+$card-background: #ffffff;
+
+$card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+$border-radius-medium: 8px;
+
+$my-primary: mat.define-palette(mat.$blue-palette, 400);
+$my-accent: mat.define-palette($custom-pallete, 500, 500, 500);
+$my-typography: mat.define-typography-config(
+  $font-family: Poppins,
+);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+    typography: $my-typography,
+  )
+);
+
+@include mat.all-component-typographies($my-typography);
+@include mat.all-component-themes($my-theme);
+
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #F9F7FF;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card {
+  background-color: $card-background;
+  border-radius: $border-radius-medium;
+  box-shadow: $card-shadow;
+  padding: $spacing-medium;
+  transition: transform 0.3s, box-shadow 0.3s;
+  
+  &:hover {
+    box-shadow: $card-shadow-hover;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-medium;
+}
+
+.text-primary {
+  color: $text-color-primary;
+}
+
+.text-secondary {
+  color: $text-color-secondary;
+}

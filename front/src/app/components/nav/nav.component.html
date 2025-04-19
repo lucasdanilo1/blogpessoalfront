@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ng-container *ngIf="isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/posts" routerLinkActive="active">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/meus-posts" routerLinkActive="active">Meus Posts</a>
+          </li>
+        </ng-container>
+      </ul>
+      
+      <div class="d-flex">
+        <div class="dropdown" *ngIf="isLoggedIn">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span *ngIf="usuario?.nome">{{ usuario!.nome }}</span>
+            <span *ngIf="!usuario?.nome">Usuário</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Sair</a></li>
+          </ul>
+        </div>
+        
+        <div *ngIf="!isLoggedIn">
+          <a class="btn btn-outline-light me-2" routerLink="/login">Login</a>
+          <a class="btn btn-primary" routerLink="/cadastro">Cadastrar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> 

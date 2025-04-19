@@ -1,0 +1,45 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2>Novo Post</h2>
+  </div>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="form-fields">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="titulo">
+        <mat-error *ngIf="postForm.get('titulo')?.hasError('required')">
+          Título é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Conteúdo</mat-label>
+        <textarea matInput rows="3" formControlName="conteudo"></textarea>
+        <mat-error *ngIf="postForm.get('conteudo')?.hasError('required')">
+          Conteúdo é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tema</mat-label>
+        <mat-select formControlName="temaId">
+          <mat-option *ngIf="carregandoTemas" value="">Carregando temas...</mat-option>
+          <mat-option *ngFor="let tema of temas" [value]="tema.id">
+            {{ tema.nome }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="postForm.get('temaId')?.hasError('required')">
+          Tema é obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="dialog-actions">
+      <button mat-button type="button" (click)="cancelar()">
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">
+        Publicar
+      </button>
+    </div>
+  </form>
+</div> 

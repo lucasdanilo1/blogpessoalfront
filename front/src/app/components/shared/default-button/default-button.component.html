@@ -1,0 +1,12 @@
+<button 
+  [type]="type" 
+  [disabled]="disabled || loading" 
+  class="btn-primary" 
+  (click)="handleClick($event)">
+  
+  <span class="button-label">
+    {{ loading ? labelLoading : label }}
+  </span>
+  
+  <span *ngIf="loading" class="spinner"></span>
+</button> 
