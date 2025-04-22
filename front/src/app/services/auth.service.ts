@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario, UsuarioLogin } from '../shared/components/types/usuario.schemas';
+import { CadastroUsuario, Usuario, UsuarioLogin } from '../shared/types/usuario.schemas';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
+import { LoginResponseDTO } from '../shared/types/login-response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(usuarioLogin: UsuarioLogin): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/auth/login`, usuarioLogin)
+  login(usuarioLogin: UsuarioLogin): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.apiUrl}/auth/login`, usuarioLogin)
       .pipe(
-        tap((response: Usuario) => {
+        tap((response: LoginResponseDTO) => {
           if (response.token) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('usuario', JSON.stringify(response));
@@ -25,7 +26,7 @@ export class AuthService {
       );
   }
 
-  cadastrar(usuario: Usuario): Observable<Usuario> {
+  cadastrar(usuario: CadastroUsuario): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}/auth/registrar`, usuario);
   }
 

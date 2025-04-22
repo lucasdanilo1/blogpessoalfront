@@ -1,0 +1,27 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2>Criar Novo Tema</h2>
+  </div>
+  <form [formGroup]="temaForm" (ngSubmit)="onSubmit()">
+    <div class="form-fields">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição do Tema</mat-label>
+        <input matInput formControlName="descricao" placeholder="Digite a descrição do tema">
+        <mat-error *ngIf="temaForm.get('descricao')?.hasError('required')">
+          Descrição é obrigatória
+        </mat-error>
+        <mat-error *ngIf="temaForm.get('descricao')?.hasError('minlength')">
+          Descrição deve ter pelo menos 3 caracteres
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="dialog-actions">
+      <button mat-button type="button" (click)="cancelar()">
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="temaForm.invalid">
+        Criar Tema
+      </button>
+    </div>
+  </form>
+</div> 

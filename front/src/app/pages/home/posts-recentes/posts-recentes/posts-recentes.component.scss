@@ -1,0 +1,38 @@
+.transition-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  
+  .card-title {
+    color: #333;
+    max-width: calc(100% - 50px);
+  }
+  
+  .card-text {
+    color: #555;
+    line-height: 1.5;
+  }
+}
+
+h2 {
+  color: #333;
+  font-weight: 600;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  
+  a {
+    margin-top: auto;
+  }
+}

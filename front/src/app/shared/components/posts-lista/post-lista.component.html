@@ -1,0 +1,28 @@
+<div *ngIf="posts.length === 0" class="text-center my-4">
+  <card-elevacao-padrao padding="3">
+    <div class="d-flex align-items-center justify-content-center p-3">
+      <mat-icon>info</mat-icon>
+      <span class="ms-2">Nenhum post encontrado.</span>
+    </div>
+  </card-elevacao-padrao>
+</div>
+
+<div class="row">
+  <app-post-item 
+    *ngFor="let post of posts" 
+    [post]="post"
+    (postExcluido)="onPostExcluido()"
+    class="col-12 mb-3">
+  </app-post-item>
+</div>
+
+<div *ngIf="totalPosts > 0" class="d-flex justify-content-center my-4">
+  <mat-paginator 
+    [length]="totalPosts"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [showFirstLastButtons]="true"
+    [hidePageSize]="true"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div> 

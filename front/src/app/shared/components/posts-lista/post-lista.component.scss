@@ -1,0 +1,8 @@
+.mat-mdc-paginator {
+  .mdc-icon-button {
+    &.mat-mdc-paginator-navigation-next,
+    &.mat-mdc-paginator-navigation-last {
+      color: #0066ff !important;
+    }
+  }
+}

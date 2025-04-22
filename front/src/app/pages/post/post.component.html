@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div *ngIf="isLoading" class="d-flex justify-content-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error && !isLoading" class="alert alert-danger" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        Não foi possível carregar o post. Por favor, tente novamente mais tarde.
+        <div class="mt-3">
+          <button (click)="voltarPaginaAnterior()" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Voltar
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="post && !isLoading" class="card shadow border-0">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center mb-4">
+            <div class="position-relative me-3" style="width: 50px; height: 50px;">
+              <img *ngIf="post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover" 
+                  [src]="'data:image/jpeg;base64,' + post.usuario.foto" alt="Foto de perfil">
+              <img *ngIf="!post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover" 
+                  [src]="'assets/User-PNG-HD-Image.png'" alt="Foto de perfil padrão">
+            </div>
+            <div>
+              <h6 class="mb-0">{{ post.usuario?.nome }}</h6>
+              <p class="text-muted small mb-0">
+                {{ post.data | date:'dd/MM/yyyy' }} • {{ post.tema?.descricao }}
+              </p>
+            </div>
+          </div>
+          
+          <h2 class="card-title mb-4">{{ post.titulo }}</h2>
+          
+          <div class="card-text mb-4">
+            <p style="white-space: pre-line;">{{ post.texto }}</p>
+          </div>
+          
+          <div class="mt-4">
+            <button (click)="voltarPaginaAnterior()" class="btn btn-outline-primary">
+              <i class="fas fa-arrow-left me-2"></i>Voltar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

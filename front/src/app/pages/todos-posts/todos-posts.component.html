@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="mb-4">
+        <app-filtros-post [temas]="temas" (filtrosChange)="onFiltrosChange($event)">
+        </app-filtros-post>
+      </div>
+    </div>
+    <div class="col-6 mb-4">
+
+      <app-post-lista [filtros]="filtros">
+      </app-post-lista>
+    </div>
+  </div>
+</div>

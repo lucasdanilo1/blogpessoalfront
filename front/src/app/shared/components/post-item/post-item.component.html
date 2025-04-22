@@ -1,0 +1,35 @@
+<div class="card shadow rounded border-0 mb-3 h-100 position-relative card-hover">
+  <button *ngIf="podeExcluirPost()" 
+          (click)="abrirDialogConfirmacao()" 
+          class="position-absolute top-0 end-0 m-2 text-danger bg-transparent border-0"
+          style="z-index: 10;"
+          title="Excluir post">
+    <mat-icon class="mt-2" style="font-size: 20px;">delete</mat-icon>
+  </button>
+  
+  <div class="card-body">
+    <div class="row mb-3">
+      <div class="col-auto">
+        <div class="position-relative" style="width: 44px; height: 44px;">
+          <img *ngIf="post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover" 
+              [src]="post.usuario?.foto ? ('data:image/jpeg;base64,' + post.usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil">
+          <img *ngIf="!post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover" 
+              [src]="'assets/User-PNG-HD-Image.png'" alt="Foto de perfil padrão">
+        </div>
+      </div>
+      <div class="col">
+        <h5 class="card-title mb-0 text-truncate">{{ post.titulo }}</h5>
+        <p class="card-subtitle text-muted small mb-0">
+          <span *ngIf="post.usuario?.nome">{{ post.usuario.nome }} • </span>
+          {{ post.data | date:'dd/MM/yyyy' }}
+        </p>
+      </div>
+    </div>
+    <div class="mt-2 mb-3">
+      <p class="card-text">{{ post.texto | slice:0:100 }}<span *ngIf="post.texto.length > 100">...</span></p>
+    </div>
+    <div class="text-end">
+      <a [routerLink]="['/post', post.id]" class="btn btn-link p-0 text-primary small text-decoration-none">Ler mais</a>
+    </div>
+  </div>
+</div>

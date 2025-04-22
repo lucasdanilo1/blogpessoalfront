@@ -1,0 +1,45 @@
+<card-elevacao-padrao padding="4">
+  <h4 class="mb-3">Filtros</h4>
+  <form [formGroup]="filtrosForm" class="filtros-form">
+    <div class="row">
+      <div class="col-md-8 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pesquisar</mat-label>
+          <input matInput formControlName="termo" placeholder="Pesquisar por título, texto ou autor">
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Tema</mat-label>
+          <mat-select formControlName="temaId">
+            <mat-option [value]="null">Todos os temas</mat-option>
+            <mat-option *ngFor="let tema of temas" [value]="tema.id">
+              {{ tema.descricao }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Data Início</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" formControlName="dataInicio">
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-4 mb-0">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Data Fim</mat-label>
+          <input matInput [matDatepicker]="pickerFim" formControlName="dataFim">
+          <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFim></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</card-elevacao-padrao>

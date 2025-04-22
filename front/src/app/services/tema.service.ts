@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, of } from 'rxjs';
-import { Tema } from '../shared/components/types/tema.schemas';
+import { Tema, TemaPostagemDTO } from '../shared/types/tema.schemas';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,24 @@ export class TemaService {
 
   constructor(private http: HttpClient) {}
 
-  async getAllTemas(): Promise<Tema[]> {
+  async getTemas(): Promise<Tema[]> {
     return lastValueFrom(this.http.get<Tema[]>(this.API));
   }
 
   async getTemaById(id: number): Promise<Tema | undefined> {
     return lastValueFrom(this.http.get<Tema>(`${this.API}/${id}`));
+  }
+
+  async criarTema(tema: Tema): Promise<Tema> {
+    return lastValueFrom(this.http.post<Tema>(this.API, tema));
+  }
+
+  async getPostsPorTema(): Promise<TemaPostagemDTO[]> {
+    try {
+      return await lastValueFrom(this.http.get<TemaPostagemDTO[]>(`${this.API}/contagem-postagens`));
+    } catch (error) {
+      console.error('Erro ao obter contagem de postagens por tema:', error);
+      return [];
+    }
   }
 }

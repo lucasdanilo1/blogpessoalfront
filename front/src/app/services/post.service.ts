@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { FiltrosPostagemDTO, Post } from '../shared/components/types/post.schemas';
-import { Page } from '../shared/components/types/page';
+import { lastValueFrom, Observable } from 'rxjs';
+import { FiltrosPostagemDTO, Post } from '../shared/types/post.schemas';
+import { Page, MinifiedPageable } from '../shared/types/page';
 
 @Injectable({
   providedIn: 'root'
@@ -12,25 +12,42 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  async getUltimosPosts(filtros: FiltrosPostagemDTO): Promise<Post[]> {
+  getPosts(filtros: FiltrosPostagemDTO, pageable?: MinifiedPageable): Observable<Page<Post>> {
     let params = new HttpParams()
-      .set('page', '0')
-      .set('size', '10')
-      .set('sort', 'data,asc');
+      .set('sort', 'data,desc');
 
-    const response = await lastValueFrom(
-      this.http.post<Page<Post>>(`${this.API_POSTAGENS}/listagem`, {
-        params,
-        body: filtros
-      })
-    );
+    if (pageable) {
+      params = params
+        .set('page', pageable.page.toString())
+        .set('size', pageable.size.toString());
+    }
 
-    return response.content;
+    return this.http.post<Page<Post>>(`${this.API_POSTAGENS}/listagem`, filtros, { params });
   }
 
-  async getUserPosts(): Promise<Post[]> {
-      const response = await lastValueFrom(this.http.get<Page<Post>>(`${this.API_POSTAGENS}/listagem/usuario-logado`));
-      return response.content;
+  async getUltimosPosts(): Promise<Post[]> {
+    const response = await lastValueFrom(
+      this.http.get<Post[]>(`${this.API_POSTAGENS}/listagem/recentes`)
+    );
+    return response;
+  }
+
+  async getPostsDoUsuarioLogado(pageable?: MinifiedPageable): Promise<Page<Post>> {
+    let params = new HttpParams();
+    
+    if (pageable) {
+      params = params
+        .set('page', pageable.page.toString())
+        .set('size', pageable.size.toString());
+    }
+    
+    return lastValueFrom(
+      this.http.get<Page<Post>>(`${this.API_POSTAGENS}/listagem/usuario-logado`, { params })
+    );
+  }
+
+  async getPostById(id: number): Promise<Post> {
+    return lastValueFrom(this.http.get<Post>(`${this.API_POSTAGENS}/${id}`));
   }
 
   async createPost(post: Post): Promise<Post> {
@@ -43,5 +60,9 @@ export class PostService {
 
   async deletePost(id: number): Promise<void> {
     return lastValueFrom(this.http.delete<void>(`${this.API_POSTAGENS}/${id}`));
+  }
+
+  async getPostsPorDiaDaSemana(): Promise<any[]> {
+    return lastValueFrom(this.http.get<any[]>(`${this.API_POSTAGENS}/posts-por-dia`));
   }
 } 
