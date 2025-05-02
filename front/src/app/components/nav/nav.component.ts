@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private usuarioService: UsuarioService
   ) {}
@@ -29,12 +29,10 @@ export class NavComponent implements OnInit {
 
   async verificarLoginStatus(): Promise<void> {
     this.isLoggedIn = this.authService.isLoggedIn();
-    
+
     if (this.isLoggedIn) {
-      // Obter informações básicas do usuário
       this.usuario = this.authService.getUsuario();
-      
-      // Tentar obter informações completas, incluindo a foto
+
       const token = this.authService.getToken();
       if (token) {
         const userId = this.usuarioService.extrairIdDoUsuarioDoToken(token);
@@ -61,4 +59,4 @@ export class NavComponent implements OnInit {
       window.location.reload();
     });
   }
-} 
+}

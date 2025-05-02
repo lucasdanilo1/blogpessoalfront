@@ -1,81 +1,68 @@
-.btn-primary {
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 22px;
   font-family: Poppins, sans-serif;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 18px;
   text-align: center;
   min-width: 120px;
   color: white;
-  background-color: var(--principal-primaria, #1424ff);
+  background-color: #0011dd;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 17, 221, 0.2);
+
   &:hover {
-    box-shadow: 0 6px 17.5px 0 #64646f5e;
-    background-color: var(--principal-primaria-darker, #0011dd);
+    box-shadow: 0 6px 18px rgba(0, 17, 221, 0.3);
+    background-color: #001aff;
+    transform: translateY(-2px);
   }
-  
-  &:disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    cursor: not-allowed;
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 17, 221, 0.25);
+    color: white;
+  }
+
+  &.disabled, &:disabled {
+      background-color: #cccccc;
+      color: #888888;
+      cursor: not-allowed !important;
+      box-shadow: none;
+      pointer-events: auto !important;
+    &:hover, &:active {
+      transform: none;
+      box-shadow: none;
+      background-color: #cccccc;
+    }
   }
 }
 
-.btn-secondary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-family: Poppins, sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  min-width: 120px;
-  color: #6c757d;
-  background-color: transparent;
-  border: 1px solid #6c757d;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  
+:host.btn-cancelar .btn,
+.btn-cancelar {
+  background-color: rgba(255, 59, 48, 0.9);
+
   &:hover {
-    box-shadow: 0 6px 17.5px 0 #64646f5e;
-    background-color: rgba(108, 117, 125, 0.1);
+    box-shadow: 0 6px 18px rgba(255, 59, 48, 0.4);
+    background-color: rgba(255, 59, 48, 1);
   }
-  
-  &:disabled {
-    opacity: 0.4;
-    pointer-events: none;
-    cursor: not-allowed;
+
+  &:active {
+    box-shadow: 0 2px 6px rgba(255, 59, 48, 0.25);
   }
 }
 
 .button-label {
   display: inline-block;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s ease-in-out infinite;
-  margin-left: 8px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: inherit;
 }

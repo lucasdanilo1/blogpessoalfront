@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { DefaultButtonComponent } from '../../../../shared/components/default-button/default-button.component';
 
 @Component({
   selector: 'app-novo-tema-dialog',
@@ -15,7 +16,8 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    DefaultButtonComponent
   ],
   templateUrl: './novo-tema-dialog.component.html',
   styleUrls: ['./novo-tema-dialog.component.scss']
@@ -37,11 +39,11 @@ export class NovoTemaDialogComponent {
       this.temaForm.markAllAsTouched();
       return;
     }
-    
+
     this.dialogRef.close(this.temaForm.get('descricao')?.value);
   }
 
   cancelar(): void {
     this.dialogRef.close();
   }
-} 
+}

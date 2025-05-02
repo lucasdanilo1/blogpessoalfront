@@ -1,10 +1,10 @@
-<div class="dialog-container">
-  <div class="dialog-header">
+<div class="container p-4" style="min-width: 300px;">
+  <div class="mb-4">
     <h2>Criar Novo Tema</h2>
   </div>
   <form [formGroup]="temaForm" (ngSubmit)="onSubmit()">
-    <div class="form-fields">
-      <mat-form-field appearance="outline" class="full-width">
+    <div class="d-flex flex-column gap-3 mb-4">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Descrição do Tema</mat-label>
         <input matInput formControlName="descricao" placeholder="Digite a descrição do tema">
         <mat-error *ngIf="temaForm.get('descricao')?.hasError('required')">
@@ -15,13 +15,20 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="dialog-actions">
-      <button mat-button type="button" (click)="cancelar()">
-        Cancelar
-      </button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="temaForm.invalid">
-        Criar Tema
-      </button>
+    <div class="d-flex justify-content-end gap-3 mt-3">
+      <app-default-button
+        label="Cancelar"
+        cssClass="btn-cancelar"
+        type="button"
+        (click)="cancelar()"
+      ></app-default-button>
+
+      <app-default-button
+        label="Criar Tema"
+        [disabled]="temaForm.invalid"
+        type="submit"
+        (click)="onSubmit()"
+      ></app-default-button>
     </div>
   </form>
-</div> 
+</div>

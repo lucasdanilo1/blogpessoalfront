@@ -1,19 +1,14 @@
 <div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Dashboard</h2>
-  </div>
-
-  <div *ngIf="!isLoggedIn" class="alert alert-info mb-4">
-    Faça login para visualizar todas as informações do dashboard.
-  </div>
 
   <div class="row mb-4">
     <div class="col-md-6 mb-3 mb-md-0">
+      <h2 class="text-center">Temas com mais posts</h2>
       <card-elevacao-padrao padding="5">
         <div echarts [options]="postsCountOption" class="chart"></div>
       </card-elevacao-padrao>
     </div>
     <div class="col-md-6">
+      <h2 class="text-center">Posts por dia da semana</h2>
       <card-elevacao-padrao padding="5">
         <div echarts [options]="postsTimelineOption" class="chart"></div>
       </card-elevacao-padrao>
@@ -21,4 +16,4 @@
   </div>
 
   <app-posts-recentes></app-posts-recentes>
-</div> 
+</div>

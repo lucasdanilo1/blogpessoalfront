@@ -88,10 +88,10 @@ export class MeuPerfilComponent implements OnInit {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    
+
     if (input.files && input.files.length > 0) {
       this.arquivoSelecionado = input.files[0];
-      
+
       const reader = new FileReader();
       reader.onload = () => {
         this.fotoPreview = reader.result;
@@ -118,6 +118,9 @@ export class MeuPerfilComponent implements OnInit {
       }
 
       await this.carregarDadosUsuario();
+
+      window.location.reload();
+
       this.editandoPerfil = false;
       this.arquivoSelecionado = null;
       this.fotoPreview = null;

@@ -1,8 +1,10 @@
+/* Configurações básicas do paginador */
 .mat-mdc-paginator {
-  .mdc-icon-button {
-    &.mat-mdc-paginator-navigation-next,
-    &.mat-mdc-paginator-navigation-last {
-      color: #0066ff !important;
-    }
+  background-color: transparent;
+}
+
+:host ::ng-deep {
+  .mat-mdc-paginator button:not([disabled]) svg {
+    fill: #2196f3 !important;
   }
 }

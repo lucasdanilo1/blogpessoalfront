@@ -1,80 +1,68 @@
-<div class="container py-4">
-  <div class="col-6">
-    <div *ngIf="!editandoPerfil" class="mb-5" style="display: flex; align-items: center; gap: 50px;">
-      <div>
-        <img [src]="usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil" style="width: 110px; height: 110px; object-fit: cover; border-radius: 50%;">
-      </div>
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-        <div>
-          <h2 style="margin-bottom: 5px;">{{usuario?.nome}}</h2>
-          <p style="color: #6c757d; margin: 0;">{{usuario?.bio}}</p>
-        </div>
-        <app-default-button 
-          [label]="'Editar perfil'" 
-          [disabled]="false" 
-          [type]="'button'" 
-          (onclick)="habilitarEdicao()">
-        </app-default-button>
-      </div>
-    </div>
-  
-    <div *ngIf="editandoPerfil" class="mb-5">
-      <form [formGroup]="perfilForm" (ngSubmit)="salvarPerfil()">
-        <div class="row">
-          <div class="col-md-3 text-center mb-3">
-            <div class="mb-3">
-              <img [src]="fotoPreview || (usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png')" alt="Foto de perfil" 
-                   style="width: 110px; height: 110px; object-fit: cover; border-radius: 50%;">
-            </div>
-            <div class="text-center">
-              <app-default-button 
-                [label]="'Alterar foto'" 
-                [variant]="'secondary'" 
-                [disabled]="false" 
-                [type]="'button'" 
-                (onclick)="fotoInput.click()">
-              </app-default-button>
-              <input #fotoInput type="file" id="foto" (change)="onFileSelected($event)" accept="image/*" style="display: none;">
-            </div>
+<div class="container ">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 mb-4">
+    <card-elevacao-padrao padding="4">
+        <div *ngIf="!editandoPerfil" class="d-flex flex-column align-items-center text-center my-3">
+          <div class="mb-3">
+            <img [src]="usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil" class="rounded-circle" style="width: 110px; height: 110px; object-fit: cover;">
           </div>
-          <div class="col-md-9">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Nome</mat-label>
-              <input matInput formControlName="nome">
-              <mat-error *ngIf="perfilForm.get('nome')?.invalid && perfilForm.get('nome')?.touched">
-                Nome é obrigatório
-              </mat-error>
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Biografia</mat-label>
-              <textarea matInput rows="3" formControlName="bio"></textarea>
-            </mat-form-field>
-            
-            <div class="d-flex gap-2">
-              <app-default-button 
-                [label]="'Salvar'" 
-                [disabled]="perfilForm.invalid" 
-                [type]="'submit'" 
-                [loading]="false" 
-                (onclick)="salvarPerfil()">
-              </app-default-button>
-              
-              <app-default-button 
-                [label]="'Cancelar'" 
-                [variant]="'secondary'" 
-                [disabled]="false" 
-                [type]="'button'" 
-                (onclick)="cancelarEdicao()">
-              </app-default-button>
-            </div>
+          <div class="w-100">
+            <h2 class="mb-2">{{usuario?.nome}}</h2>
           </div>
+          <app-default-button
+            [label]="'Editar'"
+            iconClass="fas fa-edit"
+            (onclick)="habilitarEdicao()"
+            class="mt-4">
+          </app-default-button>
         </div>
-      </form>
+
+        <div *ngIf="editandoPerfil" class="my-4]3">
+          <form [formGroup]="perfilForm" (ngSubmit)="salvarPerfil()">
+            <div class="d-flex flex-column align-items-center">
+              <div class="text-center mb-4">
+                <div class="mb-3">
+                  <img [src]="fotoPreview || (usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png')" alt="Foto de perfil"
+                       class="rounded-circle" style="width: 110px; height: 110px; object-fit: cover;">
+                </div>
+                <app-default-button
+                  [label]="'Alterar foto'"
+                  (onclick)="fotoInput.click()">
+                </app-default-button>
+                <input #fotoInput type="file" id="foto" (change)="onFileSelected($event)" accept="image/*" class="d-none">
+              </div>
+
+              <div class="w-100">
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                  <mat-label>Nome</mat-label>
+                  <input matInput formControlName="nome" maxLength="20">
+                  <mat-error *ngIf="perfilForm.get('nome')?.invalid && perfilForm.get('nome')?.touched">
+                    Nome é obrigatório
+                  </mat-error>
+                </mat-form-field>
+
+                <div class="d-flex justify-content-center gap-2 mt-2">
+                  <app-default-button
+                    [label]="'Salvar'"
+                    iconClass="fas fa-save"
+                    (onclick)="salvarPerfil()">
+                  </app-default-button>
+
+                  <app-default-button
+                    [label]="'Cancelar'"
+                    iconClass="fas fa-times"
+                    cssClass="btn-cancelar"
+                    (onclick)="cancelarEdicao()">
+                  </app-default-button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </card-elevacao-padrao>
     </div>
-  </div>
-  
-  <div class="mt-5">
-    <app-meus-posts></app-meus-posts>
+    <div class="col-lg-8 col-md-12">
+      <app-meus-posts></app-meus-posts>
+    </div>
   </div>
 </div>

@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 export interface ButtonOptions {
   label: string;
-  disabled?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  loading?: boolean;
-  labelLoading?: string;
-  variant?: 'primary' | 'secondary';
+  iconClass?: string;
   onclick: EventEmitter<MouseEvent>;
+  disabled?: boolean;
+  cssClass?: string;
+  type?: string;
 }
 
 @Component({
@@ -20,22 +19,19 @@ export interface ButtonOptions {
 })
 export class DefaultButtonComponent implements OnInit, ButtonOptions {
   @Input() label!: string;
-  @Input() disabled = false;
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() loading = false;
-  @Input() labelLoading = 'Carregando...';
-  @Input() variant: 'primary' | 'secondary' = 'primary';
+  @Input() iconClass?: string;
+  @Input() disabled?: boolean = false;
+  @Input() cssClass?: string = '';
+  @Input() type?: string = 'button';
   @Output() onclick = new EventEmitter<MouseEvent>();
 
   ngOnInit(): void {
     if (!this.label) throw new Error('O botão requer um label');
-    if (this.disabled === undefined || this.disabled === null)
-      throw new Error('O botão requer o atributo disabled');
   }
 
   handleClick(event: MouseEvent): void {
-    if (!this.disabled && !this.loading) {
+    if (!this.disabled) {
       this.onclick.emit(event);
     }
   }
-} 
+}

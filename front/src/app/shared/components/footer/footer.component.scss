@@ -1,0 +1,25 @@
+.footer {
+  background-color: white;
+  color: #333;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 100px!important;
+  box-shadow: 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

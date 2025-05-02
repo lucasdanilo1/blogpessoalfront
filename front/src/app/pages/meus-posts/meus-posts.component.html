@@ -1,18 +1,11 @@
-<div class="container">
   <div class="row mb-4">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h1 class="m-0">Meus Posts</h1>
-      <app-default-button label="Novo Post" [disabled]="false" size="medium" icon="fas fa-plus" iconPosition="start"
+      <app-default-button label="Novo Post" iconClass="fas fa-plus"
         (onclick)="abrirFormularioPost()">
       </app-default-button>
     </div>
   </div>
 
-  <div class="row mb-4">
-    <div class="col-6">
-    </div>
-  </div>
-
   <app-post-lista #postLista [filtros]="{usuarioId: getUsuarioId()}" class="w-100">
   </app-post-lista>
-</div>
