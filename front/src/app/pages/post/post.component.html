@@ -11,9 +11,9 @@
                   [src]="'assets/User-PNG-HD-Image.png'" alt="Foto de perfil padrão">
             </div>
             <div>
-              <h5 class="mb-0 nome-usuario">{{ post.usuario?.nome }}</h5>
+              <h5 class="mb-0 nome-usuario">{{ post.usuario.nome }}</h5>
               <p class="text-muted small mb-0">
-                {{ post.data | date:'dd/MM/yyyy' }} • <span class="tema-destaque">{{ post.tema?.descricao }}</span>
+                {{ post.data | date:'dd/MM/yyyy' }} • <span class="tema-destaque">{{ post.tema.descricao }}</span>
               </p>
             </div>
           </div>
