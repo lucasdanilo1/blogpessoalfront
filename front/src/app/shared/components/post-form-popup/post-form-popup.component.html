@@ -1,10 +1,10 @@
-<div class="dialog-container">
-  <div class="dialog-header">
-    <h2>Novo Post</h2>
+<div class="container p-4">
+  <div class="mb-4">
+    <h2>Publicar uma Postagem</h2>
   </div>
-  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-    <div class="form-fields">
-      <mat-form-field appearance="outline" class="full-width">
+  <form [formGroup]="postForm">
+    <div class="d-flex flex-column gap-3 mb-4">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Título</mat-label>
         <input matInput formControlName="titulo">
         <mat-error *ngIf="postForm.get('titulo')?.hasError('required')">
@@ -12,7 +12,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Conteúdo</mat-label>
         <textarea matInput rows="3" formControlName="texto"></textarea>
         <mat-error *ngIf="postForm.get('texto')?.hasError('required')">
@@ -20,21 +20,16 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Tema</mat-label>
         <mat-select formControlName="temaId">
-          <div *ngIf="carregandoTemas" class="loading-select">
-            <mat-spinner diameter="20"></mat-spinner>
-            <span>Carregando temas...</span>
-          </div>
-          <mat-option *ngIf="carregandoTemas" value="">Carregando temas...</mat-option>
           <mat-option *ngFor="let tema of temas" [value]="tema.id">
             {{ tema.descricao }}
           </mat-option>
-          <mat-option *ngIf="!carregandoTemas && temas.length === 0" value="" disabled>
+          <mat-option *ngIf="temas.length === 0" value="" disabled>
             Nenhum tema disponível
           </mat-option>
-          <mat-option *ngIf="!carregandoTemas" [value]="'novo'" (onSelectionChange)="abrirFormularioNovoTema()">
+          <mat-option [value]="'novo'">
             <span class="novo-tema-option">+ Criar novo tema</span>
           </mat-option>
         </mat-select>
@@ -43,13 +38,20 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="dialog-actions">
-      <button mat-button type="button" (click)="cancelar()">
-        Cancelar
-      </button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">
-        <span>{{ 'Publicar' }}</span>
-      </button>
+    <div class="d-flex justify-content-end gap-3 mt-3">
+      <app-default-button
+        label="Cancelar"
+        cssClass="btn-cancelar"
+        type="button"
+        (click)="cancelar()"
+      ></app-default-button>
+
+      <app-default-button
+        label="Publicar"
+        [disabled]="postForm.invalid"
+        (click)="onSubmit()"
+        type="button"
+      ></app-default-button>
     </div>
   </form>
-</div> 
+</div>

@@ -6,7 +6,7 @@ import { PostsRecentesComponent } from './posts-recentes/posts-recentes/posts-re
 import { CardElevacaoPadraoComponent } from '../../shared/components/card-elevacao-padrao/card-elevacao-padrao.component';
 import { PostService } from '../../services/post.service';
 import { TemaService } from '../../services/tema.service';
-import { AuthService } from '../../services/auth.service';
+import { SnackBarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-home',
@@ -24,52 +24,35 @@ import { AuthService } from '../../services/auth.service';
     NgxEchartsModule,
     MatDialogModule,
     PostsRecentesComponent,
-    CardElevacaoPadraoComponent
-],
+    CardElevacaoPadraoComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   postsCountOption: any;
   postsTimelineOption: any;
-  isLoggedIn: boolean = false;
 
   constructor(
-    private dialog: MatDialog,
     private postService: PostService,
     private temaService: TemaService,
-    private authService: AuthService
+    private snackBarService: SnackBarService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.isLoggedIn = this.authService.isLoggedIn();
     await this.carregarDados();
   }
 
   async carregarDados(): Promise<void> {
     try {
-      let dadosTemas: any[] = [];
-      
-      if (this.authService.isLoggedIn()) {
-        try {
-          dadosTemas = await this.temaService.getPostsPorTema();
-          console.log('Dados dos temas carregados:', dadosTemas);
-        } catch (error) {
-          console.error('Erro ao carregar dados de temas:', error);
-          dadosTemas = [];
-        }
-      } else {
-        console.log('Usuário não está logado. Não é possível carregar dados de temas.');
-      }
+      const dadosTemas = await this.temaService.getPostsPorTema();
 
-      // const dadosDiasSemana = await this.postService.getPostsPorDiaDaSemana();
+      const dadosDiasSemana = await this.postService.getPostsPorDiaDaSemana();
 
-      this.initChartTemas(dadosTemas);
-      this.initChartDiasSemana([]);
+      this.initChartTemas(dadosTemas || []);
+      this.initChartDiasSemana(dadosDiasSemana || []);
     } catch (error) {
-      console.error('Erro ao carregar dados para os gráficos:', error);
-      this.initChartTemas([]);
-      this.initChartDiasSemana([]);
+      this.snackBarService.exibirMensagemErro('Erro ao carregar dados dos gráficos.');
     }
   }
 
@@ -78,85 +61,94 @@ export class HomeComponent implements OnInit {
       value: number;
       name: string;
     }
-    
-    let data: ChartDataItem[] = [];
-    
-    if (dadosTemas && dadosTemas.length > 0) {
-      data = dadosTemas.map(item => ({
+
+    let data: ChartDataItem[] = (dadosTemas || [])
+      .map((item) => ({
         value: item.quantidadePostagens,
-        name: item.descricao || 'Sem descrição'
-      }));
-    }
-    
+        name: item.descricao || 'Sem descrição',
+      }))
+      .filter(item => item.value > 0);
+
     if (data.length === 0) {
       data = [{ value: 1, name: 'Sem dados disponíveis' }];
+    } else if (data.length > 5) {
+      data.sort((a, b) => b.value - a.value);
+      const top5 = data.slice(0, 5);
+      const outros = data.slice(5).reduce(
+        (acc, item) => ({ value: acc.value + item.value, name: 'Outros' }),
+        { value: 0, name: 'Outros' }
+      );
+      if (outros.value > 0) {
+        data = [...top5, outros];
+      } else {
+        data = top5;
+      }
     }
 
     this.postsCountOption = {
-      title: {
-        text: 'Posts por Tema',
-        left: 'center',
-      },
       tooltip: {
         trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
         orient: 'vertical',
         left: 'left',
+        top: 'center',
+        data: data.map(item => item.name)
       },
       series: [
         {
           name: 'Posts',
           type: 'pie',
-          radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: '#fff',
-            borderWidth: 2,
-          },
-          label: {
-            show: false,
-            position: 'center',
-          },
+          radius: '70%',
+          center: ['60%', '50%'],
+          data: data,
           emphasis: {
-            label: {
-              show: true,
-              fontSize: 20,
-              fontWeight: 'bold',
-            },
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           },
           labelLine: {
-            show: false,
+            show: true
           },
-          data: data,
-        },
-      ],
+          label: {
+            show: true
+          }
+        }
+      ]
     };
   }
 
   initChartDiasSemana(dadosDias: any[]): void {
-    const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-    const valores = Array(7).fill(0);
-    
-    // Preencher os valores com os dados recebidos
-    dadosDias.forEach(item => {
-      if (item.diaSemana >= 0 && item.diaSemana < 7) {
-        valores[item.diaSemana] = item.quantidade;
-      }
-    });
+    const diasSemana = [
+      'Segunda',
+      'Terça',
+      'Quarta',
+      'Quinta',
+      'Sexta',
+      'Sábado',
+      'Domingo'
+    ];
+
+    const dadosMap = new Map<string, number>(
+      dadosDias.map(item => [item.diaDaSemana.toLowerCase(), item.quantidade])
+    );
+
+    const valores = diasSemana.map(dia => dadosMap.get(dia.toLowerCase()) || 0);
 
     this.postsTimelineOption = {
-      title: {
-        text: 'Posts por Dia da Semana',
-        left: 'center',
-      },
       tooltip: {
         trigger: 'axis',
       },
       xAxis: {
         type: 'category',
         data: diasSemana,
+        axisLabel: {
+          interval: 0,
+          rotate: 0
+        }
       },
       yAxis: {
         type: 'value',
@@ -167,7 +159,12 @@ export class HomeComponent implements OnInit {
           type: 'bar',
           showBackground: true,
           backgroundStyle: {
-            color: 'rgba(180, 180, 180, 0.2)'
+            color: 'rgba(180, 180, 180, 0.2)',
+          },
+          barWidth: '40%',
+          barGap: '10%',
+          itemStyle: {
+            borderRadius: [4, 4, 0, 0]
           }
         },
       ],

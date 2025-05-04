@@ -1,55 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+<nav class="navbar navbar-expand-lg mb-5 navbar-light bg-white shadow-sm">
   <div class="container py-2">
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="row w-100">
-        <div class="col-lg-8">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <ng-container *ngIf="isLoggedIn">
-              <li class="nav-item mx-1">
-                <a class="nav-link px-3" routerLink="/home" routerLinkActive="active">Home</a>
-              </li>
-              <li class="nav-item mx-1">
-                <a class="nav-link px-3" routerLink="/todos-posts" routerLinkActive="active">Todos os Posts</a>
-              </li>
-              <li class="nav-item mx-1">
-                <a class="nav-link px-3" routerLink="/meu-perfil" routerLinkActive="active">Meu Perfil</a>
-              </li>
-            </ng-container>
-          </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ng-container *ngIf="isLoggedIn">
+          <li class="nav-item mx-1">
+            <a class="nav-link px-3" routerLink="/home" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a class="nav-link px-3" routerLink="/todos-posts" routerLinkActive="active">Todos os Posts</a>
+          </li>
+          <li class="nav-item mx-1">
+            <a class="nav-link px-3" routerLink="/meu-perfil" routerLinkActive="active">Meu Perfil</a>
+          </li>
+        </ng-container>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <div *ngIf="isLoggedIn" class="row align-items-center gx-2">
+          <div class="col-auto">
+            <a routerLink="/meu-perfil" class="user-profile-link">
+              <img [src]="usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil" class="profile-img rounded-circle">
+            </a>
+          </div>
+          <div class="col-auto me-2">
+            <a routerLink="/meu-perfil" class="text-decoration-none text-dark">
+              <span class="fw-medium">{{ usuario?.nome }}</span>
+            </a>
+          </div>
+          <div class="col-auto" style="margin-bottom: -5px;">
+            <mat-icon class="logout-icon" (click)="logout()" style="font-size: 18px; height: 18px; width: 18px; line-height: 18px; cursor: pointer;">exit_to_app</mat-icon>
+          </div>
         </div>
-        <div class="col-lg-4">
-          <div class="d-flex align-items-center justify-content-end">
-            <div *ngIf="isLoggedIn" class="row align-items-center gx-2">
-              <div class="col-auto">
-                <a routerLink="/meu-perfil" class="user-profile-link">
-                  <img [src]="usuario?.foto ? ('data:image/jpeg;base64,' + usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil" class="profile-img rounded-circle">
-                </a>
-              </div>
-              <div class="col-auto me-2">
-                <a routerLink="/meu-perfil" class="text-decoration-none text-dark">
-                  <span class="fw-medium">{{ usuario?.nome }}</span>
-                </a>
-              </div>
-              <div class="col-auto" style="margin-bottom: -5px;">
-                <mat-icon class="logout-icon" (click)="logout()" style="font-size: 18px; height: 18px; width: 18px; line-height: 18px; cursor: pointer;">exit_to_app</mat-icon>
-              </div>
-            </div>
-            <div *ngIf="!isLoggedIn" class="row">
-              <div class="col-auto">
-                <a class="btn btn-outline-dark me-2" routerLink="/login">Login</a>
-              </div>
-              <div class="col-auto">
-                <a class="btn btn-primary" routerLink="/cadastro">Cadastrar</a>
-              </div>
-            </div>
+        <div *ngIf="!isLoggedIn" class="row">
+          <div class="col-auto">
+            <a class="btn btn-outline-dark me-2" routerLink="/login">Login</a>
+          </div>
+          <div class="col-auto">
+            <a class="btn btn-primary" routerLink="/cadastro">Cadastrar</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-</nav> 
+</nav>

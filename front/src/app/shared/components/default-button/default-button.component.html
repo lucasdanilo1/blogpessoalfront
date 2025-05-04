@@ -1,12 +1,15 @@
-<button 
-  [type]="type" 
-  [disabled]="disabled || loading" 
-  [ngClass]="{'btn-primary': variant === 'primary', 'btn-secondary': variant === 'secondary'}"
+<button
+  class="btn"
+  [class.disabled]="disabled"
+  [ngClass]="cssClass"
+  [disabled]="disabled"
+  [attr.type]="type"
   (click)="handleClick($event)">
-  
+
+  <i *ngIf="iconClass" [class]="iconClass + ' '"></i>
+
   <span class="button-label">
-    {{ loading ? labelLoading : label }}
+    {{ label }}
   </span>
-  
-  <span *ngIf="loading" class="spinner"></span>
-</button> 
+
+</button>

@@ -8,10 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, debounceTime } from 'rxjs';
-import { DefaultButtonComponent } from '../default-button/default-button.component';
 import { CardElevacaoPadraoComponent } from '../card-elevacao-padrao/card-elevacao-padrao.component';
 import { Tema } from '../../types/tema.schemas';
 import { FiltrosPostagemDTO } from '../../types/post.schemas';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 interface FiltrosFormGroup {
   termo: FormControl<string | null>;
@@ -33,8 +33,8 @@ interface FiltrosFormGroup {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    DefaultButtonComponent,
-    CardElevacaoPadraoComponent
+    CardElevacaoPadraoComponent,
+    MatIconModule
   ],
   templateUrl: './filtros-post.component.html',
   styleUrl: './filtros-post.component.scss'
