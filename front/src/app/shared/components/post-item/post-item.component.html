@@ -12,7 +12,7 @@
       <div class="col-auto">
         <div class="position-relative" style="width: 44px; height: 44px;">
           <img *ngIf="post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover"
-              [src]="post.usuario?.foto ? ('data:image/jpeg;base64,' + post.usuario?.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil">
+              [src]="post.usuario.foto ? ('data:image/jpeg;base64,' + post.usuario.foto) : 'assets/User-PNG-HD-Image.png'" alt="Foto de perfil">
           <img *ngIf="!post.usuario?.foto" class="rounded-circle img-fluid w-100 h-100 object-fit-cover"
               [src]="'assets/User-PNG-HD-Image.png'" alt="Foto de perfil padrão">
         </div>
