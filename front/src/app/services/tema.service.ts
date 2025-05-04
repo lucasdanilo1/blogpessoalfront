@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, of } from 'rxjs';
 import { Tema, TemaPostagemDTO } from '../shared/types/tema.schemas';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TemaService {
-  private readonly API = 'http://localhost:8080/api/temas';
+
+  private readonly API = `${environment.apiUrl}/api/temas`;
 
   constructor(private http: HttpClient) {}
 

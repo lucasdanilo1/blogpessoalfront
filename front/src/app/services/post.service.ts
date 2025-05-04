@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { FiltrosPostagemDTO, Post } from '../shared/types/post.schemas';
 import { Page, MinifiedPageable } from '../shared/types/page';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private readonly API_POSTAGENS = 'http://localhost:8080/api/postagens';
+  private readonly API_POSTAGENS = `${environment.apiUrl}/api/postagens`;
 
   constructor(private http: HttpClient) { }
 
