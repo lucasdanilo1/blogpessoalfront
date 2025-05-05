@@ -1,14 +1,14 @@
 # Projeto Blog Pessoal
 
-Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analítico, desenvolvida com **Angular** no front-end e **Spring Boot** no back-end.
+Uma aplicação full-stack de um blo pessoal, CRUD de postagens, temas e usuários e dashboard, desenvolvida com **Angular** e **Spring Boot**.
 
 ---
 
 ## Site
 
-- **Blog Pessoal - ** https://acelera-blogpessoal.netlify.app/
+- **Blog Pessoal -** https://acelera-blogpessoal.netlify.app/
 
-- **API Consumida - ** https://github.com/lucasdanilo1/projetoblogpessoal
+- **API Consumida -** https://github.com/lucasdanilo1/projetoblogpessoal
 
 ---
 
@@ -16,7 +16,7 @@ Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analí
 
 <div>
 <img height="30" width="40" src="https://github.com/tandpfun/skill-icons/blob/main/icons/Spring-Light.svg" />
-  <img height="30" width="40" src="https://github.com/tandpfun/skill-icons/blob/main/icons/Angular.svg"/>
+  <img height="30" width="40" src="https://github.com/tandpfun/skill-icons/blob/main/icons/Angular-Light.svg"/>
 <img height="30" width="40" src="https://github.com/tandpfun/skill-icons/blob/main/icons/PostgreSQL-Light.svg" />
 </div>
 
