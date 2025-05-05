@@ -4,10 +4,11 @@ Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analí
 
 ---
 
-## Demonstração
+## Site
 
-- **Front-end (Netlify):** https://dancing-faloodeh-05299f.netlify.app/login
-- **Back-end (Azure):** https://blog-backend-azure.azurewebsites.net/api/posts
+- **Blog Pessoal - ** https://acelera-blogpessoal.netlify.app/
+
+- **API Consumida - ** https://github.com/lucasdanilo1/projetoblogpessoal
 
 ---
 
@@ -21,10 +22,9 @@ Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analí
 
 ---
 
-## 📦 Deploy
+## Deploy
 
-- **CI/CD**: GitHub Actions para build + deploy  
-- **Front-end**: Netlify (branch `main` → deploy automático)  
-- **Back-end**: Azure App Service via Actions
+- **Front-end**: Netlify
+- **Back-end**: Render
 
 ---
