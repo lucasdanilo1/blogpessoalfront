@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://projetoblogpessoal.fly.dev'
+  apiUrl: 'https://projetoblogpessoal-0giawa.fly.dev'
 }; 
