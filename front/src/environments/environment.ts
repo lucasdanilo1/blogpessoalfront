@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://projetoblogpessoal-0giawa.fly.dev'
-}; 
+  apiUrl: 'https://blogpessoal-back-d82p.onrender.com'
+};
