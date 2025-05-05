@@ -1,6 +1,6 @@
 # Projeto Blog Pessoal
 
-Aplicação full-stack de um blog pessoal, CRUD de postagens, temas e usuários e dashboard, desenvolvida com **Angular** e **Spring Boot**.
+Aplicação full-stack de um blog pessoal, CRUD de postagens, temas e usuários, desenvolvida com **Angular** e **Spring Boot**.
 
 ## Site
 
