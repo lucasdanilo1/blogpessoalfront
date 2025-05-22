@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'springboot-blogpessoal.azurewebsites.net:8080'
+  apiUrl: 'https://springboot-blogpessoal.azurewebsites.net'
 };
