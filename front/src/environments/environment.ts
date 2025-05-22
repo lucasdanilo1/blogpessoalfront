@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://proj-blog-pessoal-production.up.railway.app'
+  apiUrl: 'proj-blog-pessoal-production-c8dc.up.railway.app'
 };
